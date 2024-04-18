@@ -8,7 +8,7 @@ yearly <- read.csv('datasets/yearly_deaths.csv')
 
 # Exploratory Analysis ----------------------------------------------------
 
-yearly <- read.csv('datasets/yearly_deaths_by_clinic.csv')
+yearly <- read.csv('datasets/yearly_deaths.csv')
 # Proportion of deaths at clinic 1 vs clinic 2
 yearly <- yearly %>% mutate(prop_deaths = deaths/births)
 # Plot proportions
@@ -37,7 +37,7 @@ ggplot(monthly, aes(x=date, y=prop_deaths)) +
 monthly <- monthly %>% 
   mutate(handwashing_started = ifelse(date >= decree, TRUE, FALSE))
 # Another plot to visualize this
-ggplot(monthly, aes(x = date, y = proportion_deaths,
+ggplot(monthly, aes(x = date, y = prop_deaths,
                     colour = handwashing_started )) + geom_line()
 # Summarize proportions of deaths before/after decree
 monthly %>%
@@ -46,5 +46,5 @@ monthly %>%
 
 # Statistical Analysis ----------------------------------------------------
 
-t.test(proportion_deaths ~ handwashing_started, data = monthly, alternative)
+t.test(prop_deaths ~ handwashing_started, data = monthly)
 # There is a significant difference in proportion of deaths when hands are washed vs when they are not
